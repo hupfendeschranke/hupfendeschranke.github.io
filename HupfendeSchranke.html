@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hüpfende Schränke | Hamburg Boutique</title>
+
+    <style>
+        :root {
+            --primary-color: #d4a373;
+            --accent-rose: #e09f93;
+            --text-dark: #2b2d42;
+            --bg-light: #fefae0;
+            --bg-white: #ffffff;
+            --gray-light: #f8f9fa;
+            --border-color: #e5e5e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Playfair Display', 'Didot', 'Georgia', serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+
+        /* Navigation Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-family: 'Montserrat', 'Helvetica', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-rose);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 8%;
+            background-color: var(--gray-light);
+            min-height: 70vh;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-right: 60px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            color: var(--accent-rose);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .hero-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 35px;
+            font-family: 'Georgia', serif;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background-color: var(--text-dark);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-rose);
+            transform: translateY(-2px);
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-circle-bg {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background-color: #f1e3d3;
+            border-radius: 50%;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-image-display {
+            width: 350px;
+            height: 480px;
+            position: relative;
+            z-index: 2;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background-color: #f5ebe0;
+        }
+
+        .hero-image-display svg, .hero-image-display img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-image-display img, .product-image-wrapper img {
+            cursor: zoom-in;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-display img:hover, .product-image-wrapper img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Collection & Category Layouts */
+        .collection-showcase {
+            padding: 60px 8% 20px;
+            text-align: center;
+        }
+
+        .category-section {
+            padding: 60px 8% 40px;
+            scroll-margin-top: 80px;
+        }
+
+        .category-title-container {
+            text-align: left;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .category-title {
+            font-size: 26px;
+            font-weight: 400;
+            color: var(--text-dark);
+            text-transform: capitalize;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-rose);
+            margin: 10px auto 0;
+        }
+
+        .section-subtitle {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            text-align: left;
+            background: var(--bg-white);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-image-wrapper svg, .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-rose);
+            color: white;
+            padding: 5px 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .product-info {
+            padding: 20px 0;
+        }
+
+        .product-category {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #999;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .product-price {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Lightbox Modal */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(20, 21, 28, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 85%;
+            max-height: 85vh;
+            border-radius: 4px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-family: sans-serif;
+            user-select: none;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-rose);
+        }
+
+        /* About & Location Section */
+        .store-info {
+            background-color: var(--gray-light);
+            padding: 80px 8%;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-details {
+            margin-top: 35px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .info-icon {
+            font-size: 20px;
+            color: var(--accent-rose);
+            margin-top: 3px;
+        }
+
+        .info-text h4 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .info-text p {
+            font-family: 'Georgia', serif;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: #aeafb8;
+            padding: 60px 8% 30px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #3d3f54;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav { display: none; }
+            .hero { flex-direction: column; text-align: center; padding: 40px 5%; }
+            .hero-content { padding-right: 0; margin-bottom: 40px; }
+            .hero-title { font-size: 36px; }
+            .hero-image-container { width: 100%; }
+            .hero-image-display { width: 100%; max-width: 300px; height: 400px; }
+            .store-info { flex-direction: column; padding: 60px 5%; gap: 40px; }
+            .lightbox-close { top: 15px; right: 20px; font-size: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Icon" class="logo-img" onerror="this.style.display='none'">
+            <span class="brand-name">Hüpfende Schränke</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collection">Collection</a></li>
+                <li><a href="#boutique">Boutique</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="#"><i class="fa-regular fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-bag-shopping"></i></a>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-subtitle" id="hero-subtitle">New arrivals in Hamburg</p>
+            <h1 class="hero-title" id="hero-main-title">Timeless elegance for your wardrobe</h1>
+            <p class="hero-description" id="hero-description">Discover our handpicked selection of fine fabrics, flattering cuts, and minimalist designs combining modern style with classic comfort.</p>
+            <a href="#collection" class="btn">Shop Now</a>
+        </div>
+        <div class="hero-image-container">
+            <div class="hero-circle-bg"></div>
+            <div class="hero-image-display">
+                <img src="images/product1.jpg" id="hero-custom-img" alt="Showcase" onerror="hideImageFallbackSvg(this, 'hero-default-svg')">
+                <svg id="hero-default-svg" viewBox="0 0 350 480" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="350" height="480" fill="#f5ebe0"/>
+                    <line x1="20" y1="20" x2="330" y2="20" stroke="#e09f93" stroke-width="2"/>
+                    <line x1="330" y1="20" x2="330" y2="460" stroke="#e09f93" stroke-width="2"/>
+                    <path d="M120,90 L175,70 L230,90 L220,160 L240,240 L195,240 L220,440 L130,440 L155,240 L110,240 L130,160 Z" fill="#e09f93" opacity="0.85"/>
+                    <text x="50%" y="465" dominant-baseline="middle" text-anchor="middle" font-family="'Montserrat', sans-serif" font-size="11" letter-spacing="4" fill="#2b2d42">SIGNATURE ITEM</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <div class="collection-showcase" id="collection">
+        <h2 class="section-title">Our Highlights</h2>
+        <p class="section-subtitle">Exclusive trends directly from our boutique organized by category</p>
+    </div>
+
+    <section class="category-section" id="dresses-section">
+        <div class="category-title-container">
+            <h3 class="category-title" id="sec1-title">Dresses</h3>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <span class="product-badge">Bestseller</span>
+                    <img src="images/product1.jpg" id="p1-img" alt="Product 1" onerror="hideImageFallbackSvg(this, 'product-1-svg')">
+                    <svg id="product-1-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fbf7f4"/><path d="M90,70 L140,50 L190,70 L180,140 L200,210 L160,210 L180,380 L100,380 L120,210 L80,210 L100,140 Z" fill="#e09f93"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p1-cat">Dresses</p>
+                    <h3 class="product-name" id="p1-name">Classic Shirt Dress Dusty Rose</h3>
+                    <p class="product-price" id="p1-price">89,90 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product2.jpg" id="p2-img" alt="Product 2" onerror="hideImageFallbackSvg(this, 'product-2-svg')">
+                    <svg id="product-2-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f4f6f8"/><path d="M85,60 L140,45 L195,60 L185,200 L205,380 L75,380 L95,200 Z" fill="#4a5759"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p2-cat">Dresses</p>
+                    <h3 class="product-name" id="p2-name">Product 2</h3>
+                    <p class="product-price" id="p2-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product3.jpg" id="p3-img" alt="Product 3" onerror="hideImageFallbackSvg(this, 'product-3-svg')">
+                    <svg id="product-3-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#fcfbf7"/><path d="M100,50 L140,80 L180,50 L195,150 L220,380 L60,380 L85,150 Z" fill="#f3c68f"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p3-cat">Dresses</p>
+                    <h3 class="product-name" id="p3-name">Product 3</h3>
+                    <p class="product-price" id="p3-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product4.jpg" id="p4-img" alt="Product 4" onerror="hideImageFallbackSvg(this, 'product-4-svg')">
+                    <svg id="product-4-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p4-cat">Dresses</p>
+                    <h3 class="product-name" id="p4-name">Product 4</h3>
+                    <p class="product-price" id="p4-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product5.jpg" id="p5-img" alt="Product 5" onerror="hideImageFallbackSvg(this, 'product-5-svg')">
+                    <svg id="product-5-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p5-cat">Dresses</p>
+                    <h3 class="product-name" id="p5-name">Product 5</h3>
+                    <p class="product-price" id="p5-price">0,00 €</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="jackets-section">
+        <div class="category-title-container">
+            <h3 class="category-title" id="sec2-title">Jackets</h3>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product6.jpg" id="p6-img" alt="Product 6" onerror="hideImageFallbackSvg(this, 'product-6-svg')">
+                    <svg id="product-6-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p6-cat">Jackets</p>
+                    <h3 class="product-name" id="p6-name">Product 6</h3>
+                    <p class="product-price" id="p6-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product7.jpg" id="p7-img" alt="Product 7" onerror="hideImageFallbackSvg(this, 'product-7-svg')">
+                    <svg id="product-7-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p7-cat">Jackets</p>
+                    <h3 class="product-name" id="p7-name">Product 7</h3>
+                    <p class="product-price" id="p7-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product8.jpg" id="p8-img" alt="Product 8" onerror="hideImageFallbackSvg(this, 'product-8-svg')">
+                    <svg id="product-8-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p8-cat">Jackets</p>
+                    <h3 class="product-name" id="p8-name">Product 8</h3>
+                    <p class="product-price" id="p8-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product9.jpg" id="p9-img" alt="Product 9" onerror="hideImageFallbackSvg(this, 'product-9-svg')">
+                    <svg id="product-9-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p9-cat">Jackets</p>
+                    <h3 class="product-name" id="p9-name">Product 9</h3>
+                    <p class="product-price" id="p9-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product10.jpg" id="p10-img" alt="Product 10" onerror="hideImageFallbackSvg(this, 'product-10-svg')">
+                    <svg id="product-10-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p10-cat">Jackets</p>
+                    <h3 class="product-name" id="p10-name">Product 10</h3>
+                    <p class="product-price" id="p10-price">0,00 €</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="lingerie-section">
+        <div class="category-title-container">
+            <h3 class="category-title" id="sec3-title">Lingerie</h3>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product11.jpg" id="p11-img" alt="Product 11" onerror="hideImageFallbackSvg(this, 'product-11-svg')">
+                    <svg id="product-11-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p11-cat">Lingerie</p>
+                    <h3 class="product-name" id="p11-name">Product 11</h3>
+                    <p class="product-price" id="p11-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product12.jpg" id="p12-img" alt="Product 12" onerror="hideImageFallbackSvg(this, 'product-12-svg')">
+                    <svg id="product-12-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p12-cat">Lingerie</p>
+                    <h3 class="product-name" id="p12-name">Product 12</h3>
+                    <p class="product-price" id="p12-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product13.jpg" id="p13-img" alt="Product 13" onerror="hideImageFallbackSvg(this, 'product-13-svg')">
+                    <svg id="product-13-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p13-cat">Lingerie</p>
+                    <h3 class="product-name" id="p13-name">Product 13</h3>
+                    <p class="product-price" id="p13-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product14.jpg" id="p14-img" alt="Product 14" onerror="hideImageFallbackSvg(this, 'product-14-svg')">
+                    <svg id="product-14-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p14-cat">Lingerie</p>
+                    <h3 class="product-name" id="p14-name">Product 14</h3>
+                    <p class="product-price" id="p14-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product15.jpg" id="p15-img" alt="Product 15" onerror="hideImageFallbackSvg(this, 'product-15-svg')">
+                    <svg id="product-15-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p15-cat">Lingerie</p>
+                    <h3 class="product-name" id="p15-name">Product 15</h3>
+                    <p class="product-price" id="p15-price">0,00 €</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="category-section" id="jewellery-section">
+        <div class="category-title-container">
+            <h3 class="category-title" id="sec4-title">Jewellery</h3>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product16.jpg" id="p16-img" alt="Product 16" onerror="hideImageFallbackSvg(this, 'product-16-svg')">
+                    <svg id="product-16-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p16-cat">Jewellery</p>
+                    <h3 class="product-name" id="p16-name">Product 16</h3>
+                    <p class="product-price" id="p16-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product17.jpg" id="p17-img" alt="Product 17" onerror="hideImageFallbackSvg(this, 'product-17-svg')">
+                    <svg id="product-17-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p17-cat">Jewellery</p>
+                    <h3 class="product-name" id="p17-name">Product 17</h3>
+                    <p class="product-price" id="p17-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product18.jpg" id="p18-img" alt="Product 18" onerror="hideImageFallbackSvg(this, 'product-18-svg')">
+                    <svg id="product-18-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p18-cat">Jewellery</p>
+                    <h3 class="product-name" id="p18-name">Product 18</h3>
+                    <p class="product-price" id="p18-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product19.jpg" id="p19-img" alt="Product 19" onerror="hideImageFallbackSvg(this, 'product-19-svg')">
+                    <svg id="product-19-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p19-cat">Jewellery</p>
+                    <h3 class="product-name" id="p19-name">Product 19</h3>
+                    <p class="product-price" id="p19-price">0,00 €</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="images/product20.jpg" id="p20-img" alt="Product 20" onerror="hideImageFallbackSvg(this, 'product-20-svg')">
+                    <svg id="product-20-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f5ebe0"/><path d="M90,70 L140,50 L190,70 L180,380 L100,380 Z" fill="#d4a373"/></svg>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" id="p20-cat">Jewellery</p>
+                    <h3 class="product-name" id="p20-name">Product 20</h3>
+                    <p class="product-price" id="p20-price">0,00 €</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="imageLightbox" class="lightbox-modal" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightboxTargetImage" alt="Fullsize" onclick="event.stopPropagation()">
+    </div>
+
+    <section class="store-info" id="boutique">
+        <div class="info-content">
+            <h2 class="section-title" style="text-align: left;">Visit Us</h2>
+            <p class="section-subtitle" style="text-align: left; margin-bottom: 25px;">Experience fashion firsthand in the heart of Hamburg</p>
+            <p style="font-family: 'Georgia', serif; color: #555; margin-bottom: 20px;">
+                In our cozy boutique "Hüpfende Schränke", we attach great importance to personal advice and a relaxed atmosphere. Drop by and find your new favorite outfit.
+            </p>
+            
+            <div class="info-details">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-text">
+                        <h4>Address</h4>
+                        <p>D-22159 Hamburg, Germany</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-regular fa-envelope"></i></div>
+                    <div class="info-text">
+                        <h4>Email Contact</h4>
+                        <p>KhristelDomaschke@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+                    <div class="info-text">
+                        <h4 id="store-hours-title">Opening Hours</h4>
+                        <p id="store-hours-details">Mon - Fri: 10:00 AM - 07:00 PM<br>Sat: 10:00 AM - 04:00 PM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 300px; height: 350px; background-color: #eaeae6; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid var(--border-color); position: relative; overflow: hidden;">
+            <div style="position: absolute; width: 100%; height: 100%; opacity: 0.15; background-image: radial-gradient(#2b2d42 1px, transparent 0); background-size: 24px 24px;"></div>
+            <i class="fa-solid fa-map-location-dot" style="font-size: 48px; color: var(--accent-rose); margin-bottom: 15px; z-index: 2;"></i>
+            <h3 style="font-size: 18px; font-weight: 400; margin-bottom: 5px; z-index: 2;">Hamburg Wandsbek / Farmsen</h3>
+            <p style="font-family: 'Georgia', serif; font-size: 13px; color: #666; z-index: 2;">Area D-22159</p>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 style="color: white; margin-bottom: 15px;">Hüpfende Schränke</h3>
+                <p style="font-size: 13px; line-height: 1.8;">Exclusive women's fashion, fine accessories, and individual style consulting directly in Hamburg.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Collections</h3>
+                <ul>
+                    <li><a href="#collection" id="footer-link-1">New Arrivals</a></li>
+                    <li><a href="#dresses-section" id="footer-link-2">Dresses</a></li>
+                    <li><a href="#jackets-section" id="footer-link-3">Jackets</a></li>
+                    <li><a href="#lingerie-section" id="footer-link-4">Lingerie</a></li>
+                    <li><a href="#jewellery-section" id="footer-link-5">Jewellery</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Hüpfende Schränke. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof storeConfig !== 'undefined') {
+                // Dynamic Data Mapping for Hero Content Banner text elements
+                if (storeConfig.heroBanner) {
+                    const subEl = document.getElementById('hero-subtitle');
+                    const descEl = document.getElementById('hero-description');
+                    if (subEl && storeConfig.heroBanner.subtitle) subEl.innerText = storeConfig.heroBanner.subtitle;
+                    if (descEl && storeConfig.heroBanner.description) descEl.innerText = storeConfig.heroBanner.description;
+                }
+
+                // Dynamic Category Section Title Changes
+                if (storeConfig.sectionTitles) {
+                    for (let s = 1; s <= 4; s++) {
+                        const titleEl = document.getElementById(`sec${s}-title`);
+                        if (titleEl && storeConfig.sectionTitles[`section${s}`]) {
+                            titleEl.innerText = storeConfig.sectionTitles[`section${s}`];
+                        }
+                    }
+                }
+
+                // Dynamic Data Mapping Loop expanded for up to 20 products
+                for (let i = 1; i <= 20; i++) {
+                    const prodKey = 'product' + i;
+                    if (storeConfig[prodKey]) {
+                        const catEl = document.getElementById(`p${i}-cat`);
+                        const nameEl = document.getElementById(`p${i}-name`);
+                        const priceEl = document.getElementById(`p${i}-price`);
+                        const imgEl = document.getElementById(`p${i}-img`);
+
+                        if (catEl) catEl.innerText = storeConfig[prodKey].category || '';
+                        if (nameEl) nameEl.innerText = storeConfig[prodKey].name || '';
+                        if (priceEl) priceEl.innerText = storeConfig[prodKey].price || '';
+                        if (imgEl && storeConfig[prodKey].image) imgEl.src = storeConfig[prodKey].image;
+                        
+                        if (i === 1 && storeConfig[prodKey].name) {
+                            document.getElementById('hero-main-title').innerText = storeConfig[prodKey].name;
+                        }
+                    }
+                }
+
+                // Dynamic Data Mapping for storefront office hours
+                if (storeConfig.officeHours) {
+                    const titleEl = document.getElementById('store-hours-title');
+                    const detailsEl = document.getElementById('store-hours-details');
+                    if (titleEl && storeConfig.officeHours.title) titleEl.innerText = storeConfig.officeHours.title;
+                    if (detailsEl && storeConfig.officeHours.details) detailsEl.innerHTML = storeConfig.officeHours.details;
+                }
+
+                // Dynamic Data Mapping for Footer Anchor links text parameters
+                if (storeConfig.footerLinks) {
+                    for (let linkNum = 1; linkNum <= 5; linkNum++) {
+                        const linkEl = document.getElementById(`footer-link-${linkNum}`);
+                        if (linkEl && storeConfig.footerLinks[`link${linkNum}`]) {
+                            linkEl.innerText = storeConfig.footerLinks[`link${linkNum}`];
+                        }
+                    }
+                }
+            }
+
+            // Map variables for Lightbox transitions and standard SVGs across all 20 elements
+            const imagesToProcess = [];
+            for (let i = 1; i <= 20; i++) {
+                imagesToProcess.push({ imgId: `p${i}-img`, svgId: `product-${i}-svg` });
+            }
+            imagesToProcess.push({ imgId: 'hero-custom-img', svgId: 'hero-default-svg' });
+
+            imagesToProcess.forEach(item => {
+                const img = document.getElementById(item.imgId);
+                const svg = document.getElementById(item.svgId);
+                
+                if(img && svg) {
+                    if (img.complete && img.naturalHeight !== 0) {
+                        svg.style.display = 'none';
+                        bindLightbox(img);
+                    } else {
+                        img.addEventListener('load', function() {
+                            svg.style.display = 'none';
+                            img.style.display = 'block';
+                            bindLightbox(img);
+                        });
+                    }
+                }
+            });
+
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' || e.keyCode === 27) {
+                    closeLightbox();
+                }
+            });
+        });
+
+        function hideImageFallbackSvg(imageTag, fallbackSvgId) {
+            imageTag.style.display = 'none';
+            const fallbackSvg = document.getElementById(fallbackSvgId);
+            if(fallbackSvg) fallbackSvg.style.display = 'block';
+        }
+
+        function bindLightbox(imgElement) {
+            imgElement.addEventListener('click', function() {
+                const modal = document.getElementById('imageLightbox');
+                const target = document.getElementById('lightboxTargetImage');
+                target.src = this.src;
+                modal.style.display = 'flex';
+                setTimeout(() => { modal.classList.add('active'); }, 10);
+            });
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('imageLightbox');
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+    </script>
+
+    <script>
+        const storeConfig = {
+            heroBanner: {
+                subtitle: 'New arrivals in Hamburg',
+                description: 'Discover our handpicked selection of fine fabrics, flattering cuts, and minimalist designs combining modern style with classic comfort.'
+            },
+            officeHours: {
+                title: 'Boutique Hours',
+                details: 'Mon - Fri: 10:00 AM - 07:00 PM<br>Sat: 10:00 AM - 04:00 PM<br>Sun: Closed'
+            },
+            sectionTitles: {
+                section1: 'Dresses',
+                section2: 'Lingerie',
+                section3: 'Shoes',
+                section4: 'Jewellery'
+            },
+            footerLinks: {
+                link1: 'New Arrivals',
+                link2: 'Dresses Collection',
+                link3: 'Lingerie Lookbookn',
+                link4: 'Shoe Collection',
+                link5: 'Fine Jewellery'
+            },
+            
+            // SECTION 1: DRESSES (Products 1-5)
+            product1: {
+                category: 'Dresses',
+                name: 'Classic Shirt Dress Dusty Rose',
+                price: '200,90 €',
+                image: 'images/product1.jpg'
+            },
+            product2: {
+                category: 'Dresses',
+                name: 'Velvet Evening Gown',
+                price: '249,00 €',
+                image: 'images/product2.jpg'
+            },
+            product3: {
+                category: 'Dresses',
+                name: 'Light A-Line Dress Pastel Yellow',
+                price: '129,95 €',
+                image: 'images/product3.jpg'
+            },
+            product4: {
+                category: 'Dresses',
+                name: 'Floral Summer Wrap Dress',
+                price: '89,00 €',
+                image: 'images/product4.jpg'
+            },
+            product5: {
+                category: 'Dresses',
+                name: 'Minimalist Linen Midi Dress',
+                price: '110,00 €',
+                image: 'images/product5.jpg'
+            },
+
+            // SECTION 2: LINGERIE (Products 6-10)
+            product6: {
+                category: 'Lingerie',
+                name: 'Elegant Trenchcoat Deep Forest',
+                price: '149,00 €',
+                image: 'images/product6.jpg'
+            },
+            product7: {
+                category: 'Lingerie',
+                name: 'Classic Leather Moto Jacket',
+                price: '199,00 €',
+                image: 'images/product7.jpg'
+            },
+            product8: {
+                category: 'Lingerie',
+                name: 'Oversized Wool Blend Blazer',
+                price: '135,00 €',
+                image: 'images/product8.jpg'
+            },
+            product9: {
+                category: 'Lingerie',
+                name: 'Bouclé Crop Jacket Pastel Rose',
+                price: '139,90 €',
+                image: 'images/product9.jpg'
+            },
+            product10: {
+                category: 'Lingerie',
+                name: 'Lightweight Denim Jacket',
+                price: '79,95 €',
+                image: 'images/product10.jpg'
+            },
+
+            // SECTION 3: SHOES (Products 11-15)
+            product11: {
+                category: 'Shoes',
+                name: 'Lace Bralette Onyx Black',
+                price: '45,00 €',
+                image: 'images/product11.jpg'
+            },
+            product12: {
+                category: 'Shoes',
+                name: 'Silk Satin Nightgown',
+                price: '89,90 €',
+                image: 'images/product12.jpg'
+            },
+            product13: {
+                category: 'Shoes',
+                name: 'Embroidered Tulle Bodysuit',
+                price: '75,00 €',
+                image: 'images/product13.jpg'
+            },
+            product14: {
+                category: 'Shoes',
+                name: 'Sheer Robe with Silk Trim',
+                price: '115,00 €',
+                image: 'images/product14.jpg'
+            },
+            product15: {
+                category: 'Shoes',
+                name: 'Soft Modal Pajama Set',
+                price: '65,00 €',
+                image: 'images/product15.jpg'
+            },
+
+
+            // SECTION 4: JEWELLERY (Products 16-20)
+            product16: {
+                category: 'Jewellery',
+                name: 'Minimalist Gold Chain Necklace',
+                price: '59,00 €',
+                image: 'images/product16.jpg'
+            },
+            product17: {
+                category: 'Jewellery',
+                name: 'Baroque Pearl Drop Earrings',
+                price: '48,00 €',
+                image: 'images/product17.jpg'
+            },
+            product18: {
+                category: 'Jewellery',
+                name: 'Stacked Silver Band Rings',
+                price: '39,00 €',
+                image: 'images/product18.jpg'
+            },
+            product19: {
+                category: 'Jewellery',
+                name: 'Chunky Link Statement Bracelet',
+                price: '69,90 €',
+                image: 'images/product19.jpg'
+            },
+            product20: {
+                category: 'Jewellery',
+                name: 'Diamond Accent Huggie Hoops',
+                price: '120,00 €',
+                image: 'images/product20.jpg'
+            }
+        };
+    </script>
+</body>
+</html>
